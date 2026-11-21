@@ -1,0 +1,9 @@
+{
+  "name": "Tai Ahom Smart Writer",
+  "short_name": "Tai Ahom Writer",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f2e9",
+  "theme_color": "#17251f",
+  "description": "A careful, source-based Tai Ahom writing and learning project"
+}

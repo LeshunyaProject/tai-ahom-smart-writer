@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="as">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17251f">
+<link rel="manifest" href="manifest.json">
+<title>Tai Ahom Smart Writer</title>
+<style>
+:root{--bg:#f5f2e9;--ink:#17251f;--gold:#b68b42;--card:#fffdf7;--muted:#6d746e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Noto Sans Assamese",sans-serif}
+header{background:var(--ink);color:#f4d58d;padding:22px 18px 18px;border-bottom:4px solid var(--gold)}
+header h1{font-size:23px;margin:0}header p{margin:6px 0 0;color:#e9d9b5;font-size:13px}
+main{max-width:760px;margin:auto;padding:16px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
+button,select,textarea,input{font:inherit}button{border:0;border-radius:12px;padding:11px 13px;background:var(--ink);color:white;font-weight:600}
+.tabs button{background:#e5dfd0;color:var(--ink)}.tabs button.active{background:var(--gold);color:#fff}
+.card{background:var(--card);border:1px solid #e4ddce;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 2px 8px #1b2a2010}
+label{display:block;font-weight:650;margin:12px 0 6px}
+textarea,input,select{width:100%;padding:12px;border:1px solid #cfc7b6;border-radius:10px;background:white;color:#17251f}
+textarea{min-height:112px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row button{flex:1}
+.small{font-size:12px;color:var(--muted);line-height:1.5}.output{min-height:76px;background:#f4efe3;border-radius:10px;padding:14px;white-space:pre-wrap;font-size:22px}
+.notice{background:#fff4d9;border-left:4px solid var(--gold);padding:11px;border-radius:8px;font-size:13px;line-height:1.5}
+.hidden{display:none}.foot{text-align:center;color:var(--muted);font-size:12px;padding:22px}
+</style>
+</head>
+<body>
+<header><h1>TAI AHOM SMART WRITER</h1><p>Preserve · Write · Speak · Learn</p></header>
+<main>
+<div class="card">
+<label for="mode">লিখন পদ্ধতি</label>
+<select id="mode"><option value="historical">ঐতিহাসিক টাঈ আহোম (Historical)</option><option value="modern">আধুনিক টাঈ আহোম (Modern)</option></select>
+<p class="small">দুয়োটা পদ্ধতি পৃথককৈ ৰখা হৈছে। কোনো অযাচিত বানান বা উচ্চাৰণ নিজে সৃষ্টি কৰা নহ'ব।</p>
+</div>
+<nav class="tabs">
+<button class="active" data-tab="writer">লিখক</button><button data-tab="voice">কথা কওক</button><button data-tab="dictionary">অভিধান</button>
+</nav>
+<section id="writer" class="panel">
+<div class="card">
+<h2>লিখন আৰু অনুবাদ</h2>
+<label for="source">আপোনাৰ বাক্য</label>
+<textarea id="source" placeholder="অসমীয়া / English / Hindi-ত লিখক..."></textarea>
+<div class="row"><button id="check">শব্দভঁৰালত বিচাৰক</button><button id="clear" type="button">মচক</button></div>
+<label>টাঈ আহোম ফলাফল</label><div class="output" id="result">প্ৰমাণিত শব্দভঁৰাল যোগ হ'লে ফলাফল ইয়াত দেখা যাব।</div>
+<div class="row"><button id="copy">ফলাফল Copy</button></div>
+<p class="small" id="status">এতিয়ালৈকে প্ৰমাণিত অনুবাদৰ ডেটা সংযোজন কৰা হোৱা নাই।</p>
+</div>
+<div class="notice"><b>গুৰুত্বপূৰ্ণ:</b> এই প্ৰথম Prototype-ত ভুল অনুবাদ দেখুওৱাৰ সলনি অজানা শব্দৰ বাবে “তথ্য উপলব্ধ নহয়” দেখুৱায়। পৃষ্ঠা ১৪–২৩-ৰ অধ্যয়ন-সাৰাংশক সম্পূৰ্ণ অভিধান বুলি ধৰা হোৱা নাই।</div>
+</section>
+<section id="voice" class="panel hidden">
+<div class="card">
+<h2>কথাৰ পৰা লিখন</h2>
+<p>মাইক্ৰ'ফোনে সমৰ্থন কৰা ভাষাত কোৱা কথাখিনি প্ৰথমে লিখিত ৰূপলৈ আনিব পাৰিব। তাৰ পিছত টাঈ আহোমলৈ অনুবাদৰ বাবে শব্দভঁৰালৰ সহায় ল'ব লাগিব।</p>
+<label for="speechLang">কথা কোৱা ভাষা</label>
+<select id="speechLang"><option value="as-IN">অসমীয়া</option><option value="en-IN">English</option><option value="hi-IN">हिन्दी</option><option value="bn-IN">বাংলা</option></select>
+<div class="row"><button id="startVoice">মাইক্ৰ'ফোন আৰম্ভ</button><button id="stopVoice">বন্ধ কৰক</button></div>
+<label for="voiceText">শুনা কথাৰ লিখিত ৰূপ</label><textarea id="voiceText" placeholder="আপোনাৰ কথা ইয়াত লিখা হ'ব..."></textarea>
+<p class="small" id="voiceStatus">Browser আৰু device-ৰ অনুমতি/সমৰ্থনৰ ওপৰত Voice Input নিৰ্ভৰ কৰে।</p>
+</div>
+</section>
+<section id="dictionary" class="panel hidden">
+<div class="card">
+<h2>টাঈ আহোম অভিধান</h2>
+<label for="lookup">শব্দ বিচাৰক</label><input id="lookup" placeholder="Roman spelling বা অৰ্থ লিখক">
+<div class="output" id="dictResult" style="font-size:16px">প্ৰমাণিত শব্দভঁৰাল এতিয়াও যোগ কৰা হোৱা নাই।</div>
+<p class="small">প্ৰতিটো শব্দৰ সৈতে মূল উৎস, লিপি, Roman ৰূপ, অৰ্থ আৰু নিশ্চিততাৰ স্তৰ সংৰক্ষণ কৰা হ'ব।</p>
+</div>
+</section>
+<div class="foot">প্ৰাথমিক Prototype · Version 0.1 · তথ্য যাচাই অবিহনে অনুবাদ নহয়</div>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('[data-tab]')];
+tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hidden',p.id!==b.dataset.tab));}));
+const source=document.getElementById('source'), result=document.getElementById('result'), status=document.getElementById('status');
+document.getElementById('check').onclick=()=>{result.textContent='এই বাক্যৰ বাবে এতিয়াও প্ৰমাণিত অনুবাদ উপলব্ধ নহয়।';status.textContent='ভুল অনুবাদ এৰাবলৈ ফলাফল দেখুওৱা হোৱা নাই। পৰীক্ষিত অভিধান/ব্যাকৰণ যোগ কৰাৰ পিছত এই সুবিধা সক্ৰিয় হ'ব।';};
+document.getElementById('clear').onclick=()=>{source.value='';result.textContent='';status.textContent='';};
+document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText(result.textContent);status.textContent='Copy কৰা হ’ল।';}catch(e){status.textContent='Copy কৰিব নোৱাৰিলে; ফলাফলটো নিজে Select কৰক।';}};
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+let recognition;
+if(SpeechRecognition){recognition=new SpeechRecognition();recognition.continuous=true;recognition.interimResults=true;recognition.onresult=e=>{let t='';for(let i=0;i<e.results.length;i++)t+=e.results[i][0].transcript+(e.results[i].isFinal?' ':'');document.getElementById('voiceText').value=t;};recognition.onerror=e=>document.getElementById('voiceStatus').textContent='Voice Input error: '+e.error;recognition.onend=()=>document.getElementById('voiceStatus').textContent='Voice Input বন্ধ হৈছে।';}
+document.getElementById('startVoice').onclick=()=>{if(!recognition){document.getElementById('voiceStatus').textContent='এই Browser-ত Speech Recognition সমৰ্থিত নহয়।';return;}recognition.lang=document.getElementById('speechLang').value;recognition.start();document.getElementById('voiceStatus').textContent='শুনি আছোঁ...';};
+document.getElementById('stopVoice').onclick=()=>{if(recognition)recognition.stop();};
+document.getElementById('lookup').oninput=()=>document.getElementById('dictResult').textContent='এই শব্দৰ পৰীক্ষিত অভিধান-তথ্য এতিয়াও সংযোজন কৰা হোৱা নাই।';
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
